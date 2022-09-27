@@ -1,0 +1,58 @@
+%%Read and listen
+%%punkt2
+[bass,fS] = audioread('bass.mp3');
+[guitars,fS2] = audioread('guitars.mp3');
+[synths,fS3] = audioread('synths.mp3');
+[drums,fS4] = audioread('drums.mp3');   
+N=length(bass);
+N2=length(guitars);
+N3=length(synths);
+N4=length(drums);
+
+%%punkt3
+Num_Sec=N/fS;
+Num_Sec2=N2/fS2;
+Num_Sec3=N3/fS3;
+Num_Sec4=N4/fS4;
+%%punkt4-6
+
+%%Melody Matrix
+
+melodyMatrix = [bass guitars synths drums];
+tmpVector = ones(4,1);
+melody = melodyMatrix * tmpVector;  
+
+%%punkt7
+%%Minus One
+
+minus_one=melody-bass;
+
+%%punkt8
+
+%%Signal distortion
+
+T=Num_Sec/2;
+time_array=(0:N-1)/fS;
+volumeMod = sin(2*pi*(time_array/T));
+
+%%punkt9
+VolumeMod = volumeMod';
+elemental = VolumeMod.*melody;
+%%punkt10
+kvaminus = (VolumeMod.^2) *2 - 1;
+
+%%punkt11
+%%Shorten melody
+
+X = melodyMatrix'; 
+tmp = X(1:1:length(X(:))/2);
+halfMelodyMatrix = reshape(tmp, 4,length(tmp)/4);
+halfMelody = sum(halfMelodyMatrix);
+sound(halfMelody,fS)
+
+
+
+%%punkt12
+%%2-channel sound
+
+
