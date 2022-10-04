@@ -42,17 +42,36 @@ elemental = VolumeMod.*melody;
 kvaminus = (VolumeMod.^2) *2 - 1;
 
 %%punkt11
-%%Shorten melody
+%%Shorten melody_A
 
 X = melodyMatrix'; 
 tmp = X(1:1:length(X(:))/2);
 halfMelodyMatrix = reshape(tmp, 4,length(tmp)/4);
 halfMelody = sum(halfMelodyMatrix);
-sound(halfMelody,fS)
+%%sound(halfMelody,fS)
 
+%%punkt11
+%%Shorten melody_B
 
+N=size(melodyMatrix,1);
+melodyMatrixHalf=melodyMatrix(1:N/2,:);
+melodyHalf=sum(melodyMatrixHalf,2);
+%%sound(melodyHalf,fS)
 
-%%punkt12
+%%punkt12(13)
 %%2-channel sound
+ch1=melody.*(melody>0.5);
+ch2=melody.*(melody<0.5);
+multiSig=[ch1,ch2];
+
+%%punkt14
+%%Флипнуть
+
+flip_melody = flip(melody);
+%%sound(flip_melody,fS);
+
+
+A=magic(4)
+B=reshape(A,[16,1])
 
 
